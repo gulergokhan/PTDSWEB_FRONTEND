@@ -15,7 +15,9 @@ Live timeline (staff + visitors), gate IN/OUT strings (building • floor • do
   - Gate strings: `A1 • Floor 5 • Door 3` (IN) / `A2 • Floor 2 • Door 7` (OUT)
   - Visitor IN/OUT with host, company, purpose
  <img width="1826" height="905" alt="home page" src="https://github.com/user-attachments/assets/f27d97a1-25fc-4934-84e1-9803ea03a3cc" />
- ---
+
+
+---
 
 - **Charts**
   - Line: `OWN_CARD`, `TEMP_CARD`, `VISITOR` cumulative entries by hour
