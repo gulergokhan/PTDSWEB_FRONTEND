@@ -3,18 +3,18 @@ import { BrowserRouter, Routes, Route, Link, useNavigate, useParams, Navigate, u
 import axios from "axios";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 
-/* ---------- API ---------- */
+
 const API_BASE = (import.meta as any).env?.VITE_API_URL || "http://localhost:8080";
 function useApi(){ return useMemo(()=>axios.create({ baseURL: API_BASE }),[]); }
 
-/* ---------- Icons ---------- */
+
 const IconSearch = (p:any) => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={p.className}><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>);
 const IconUser   = (p:any) => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={p.className}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>);
 const IconDoor   = (p:any) => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={p.className}><path d="M3 21h18"/><path d="M9 21V8a2 2 0 0 1 2-2h6v15"/><path d="M13 12v.01"/></svg>);
 const IconAlert  = (p:any) => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={p.className}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>);
 const LiveDot = ({className}:{className?:string}) => (<span className={`inline-block w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse ${className||""}`} />);
 
-/* ---------- Auth ---------- */
+
 const AuthCtx = createContext<any>(null);
 function AuthProvider({children}:{children:any}){
   const [user,setUser] = useState<any>(()=>{ try{ return JSON.parse(localStorage.getItem("pdts_admin")||"null"); }catch{return null;} });
@@ -29,7 +29,7 @@ function AuthProvider({children}:{children:any}){
 }
 const useAuth = ()=> useContext(AuthCtx);
 
-/* ---------- Utils ---------- */
+
 const COLORS = { green: "#16a34a", yellow: "#f59e0b", red: "#ef4444", gray: "#6b7280" } as const;
 const StatusChip = ({ text, color }:{text:string,color:string}) => (<span className="text-xs px-2 py-0.5 rounded-full border" style={{ borderColor: color, color }}>{text}</span>);
 
@@ -45,7 +45,7 @@ function gateStringIN(a:any){ if(!a?.inBuilding) return '-'; return `${a.inBuild
 function gateStringOUT(a:any){ if(!a?.outBuilding) return '-'; return `${a.outBuilding} • Floor ${a.outFloor} • Door ${a.outDoor}`; }
 const hostIdOf = (v:any) => v?.hostStaffId ?? v?.hostStaff?.id ?? null;
 
-/* ---------- Status ---------- */
+
 function computeStatusFor(rows:any[], dateStr:string){
   const r = rows.find(x=>x.date===dateStr);
   if(!r || !r.checkIn) return { text:"Offsite", color: COLORS.gray };
@@ -54,7 +54,7 @@ function computeStatusFor(rows:any[], dateStr:string){
   return { text:"Offsite", color: COLORS.gray };
 }
 
-/* ---------- Hooks ---------- */
+
 function useStaff(){
   const api = useApi(); const [staff,setStaff] = useState<any[]>([]);
   const refresh = async()=>{ try{ const r=await api.get(`/api/staff`); const data = Array.isArray(r.data)?r.data:(r.data?.content||[]); setStaff(data); }catch(e){ console.error(e);} };
@@ -83,7 +83,7 @@ function useVisitors(){
   return { visitors: rows, refresh };
 }
 
-/* ---------- Charts data ---------- */
+
 function buildEntryTypeSeries(att:any[], visitors:any[], dateStr:string){
   const ofDayAtt = att.filter(a=>a.date===dateStr && a.checkIn);
   const ofDayVis = visitors.filter(v=>v.date===dateStr && v.checkIn);
@@ -120,7 +120,7 @@ function buildStatusPie(staff:any[], att:any[], dateStr:string){
   return data.filter(d=>d.value>0);
 }
 
-/* ---------- UI: layout ---------- */
+
 function Header({ query, setQuery }:{query:string,setQuery:(v:string)=>void}){
   const nav = useNavigate(); const { user, logout } = useAuth();
   return (
@@ -164,7 +164,7 @@ function Sidebar(){
   );
 }
 
-/* ---------- Home (timeline + charts) ---------- */
+
 function expandEventsForDay(att:any[], visitors:any[], staff:any[], day:string){
   const events:any[] = [];
   for(const a of att.filter(x=>x.date===day)){
@@ -296,7 +296,7 @@ function HomePage({ staff, query, attendance, visitors }:{
   );
 }
 
-/* ---------- Profiles ---------- */
+
 function ProfilesList({ staff, query, attendance }:{staff:any[],query:string,attendance:any[]}){
   const norm = (s:string)=>(s||"").toLocaleLowerCase("tr");
   const q = norm(query);
@@ -415,7 +415,7 @@ function ProfileDetail({ staff, attendance }:{staff:any[],attendance:any[]}){
   );
 }
 
-/* ---------- Reports ---------- */
+
 function ReportsPage({ staff, attendance }:{staff:any[],attendance:any[]}){
   const eff = activeDateUnion(attendance, []);
   const [tab, setTab] = useState<'daily'|'monthly'|'yearly'>('daily');
@@ -465,7 +465,7 @@ function ReportsPage({ staff, attendance }:{staff:any[],attendance:any[]}){
   );
 }
 
-/* ---------- Visitors ---------- */
+
 function VisitorsList({ visitors, staff }:{visitors:any[],staff:any[]}){
   const eff = activeDateUnion([], visitors);
   const liveVisitors = visitors.filter(v=> v.date===eff && v.checkIn && !v.checkOut);
@@ -501,7 +501,7 @@ function VisitorsList({ visitors, staff }:{visitors:any[],staff:any[]}){
   );
 }
 
-/* ---------- Admin ---------- */
+
 function RequireAdmin({children}:{children:any}){ const { user } = useAuth(); if(!user) return <Navigate to="/admin/login" replace/>; return children; }
 function AdminLogin(){
   const { user, login } = useAuth(); const nav = useNavigate();
@@ -635,7 +635,7 @@ function AdminNewVisitor(){
   );
 }
 
-/* ---------- Shell ---------- */
+
 function Shell(){
   const { staff } = useStaff();
   const { attendance, refresh: refreshAtt } = useAttendance();
@@ -680,7 +680,7 @@ function Shell(){
   );
 }
 
-/* ---------- App ---------- */
+
 export default function App(){
   return (
     <AuthProvider>
