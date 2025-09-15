@@ -20,15 +20,13 @@ Live timeline (staff + visitors), gate IN/OUT strings (building • floor • do
 - **Charts**
   - Line: `OWN_CARD`, `TEMP_CARD`, `VISITOR` cumulative entries by hour
   - Pie: `At Work`, `At Lunch`, `Offsite`
-  - <img width="1452" height="725" alt="A-2" src="https://github.com/user-attachments/assets/1c7fd527-237a-4a4d-ae52-a227ccb4e498" />
-  ---
+
+   <img width="1452" height="725" alt="A-2" src="https://github.com/user-attachments/assets/1c7fd527-237a-4a4d-ae52-a227ccb4e498" />
+  
   <img width="1496" height="747" alt="a-7" src="https://github.com/user-attachments/assets/1fbb976c-805a-4747-9545-d86eb2ac5c5a" />
 
----
-  
   <img width="1483" height="756" alt="a-9" src="https://github.com/user-attachments/assets/2475629d-ba75-4387-872c-d7eb1c625b3f" />
 
- ---
 <img width="1489" height="756" alt="a-8" src="https://github.com/user-attachments/assets/bc5eb836-a819-49e8-bd01-007e73551de0" />
 
 ---
@@ -41,9 +39,9 @@ Live timeline (staff + visitors), gate IN/OUT strings (building • floor • do
 
   <img width="1494" height="731" alt="a-11" src="https://github.com/user-attachments/assets/150350e1-76eb-4475-880e-afaf129f342e" />
 
----
   <img width="1509" height="753" alt="a-12" src="https://github.com/user-attachments/assets/61551af1-5bc9-4d47-b8b8-fec08259d1af" />
 
+---
 
 - **Visitors**
   - Live visitors (checked in, not checked out) and full history (not available)
